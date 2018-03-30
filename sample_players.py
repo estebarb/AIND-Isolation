@@ -259,8 +259,8 @@ if __name__ == "__main__":
     from game_agent import custom_score, custom_score_2, custom_score_3
 
     # create an isolation board (by default 7x7)
-    player1 = AlphaBetaPlayer(score_fn=custom_score_3)
-    player2 = RandomPlayer()
+    player1 = AlphaBetaPlayer(score_fn=custom_score)
+    player2 = MinimaxPlayer()
     #player2 = GreedyPlayer()
     game = Board(player1, player2)
 

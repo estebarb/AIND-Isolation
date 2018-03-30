@@ -181,9 +181,6 @@ class MinimaxPlayer(IsolationPlayer):
         except SearchTimeout:
             pass  # Handle any actions required after timeout as needed
 
-        if best_move == (-1,-1):
-            print(f"\nThere was options: {game.get_legal_moves()} for {self}\n")
-
         # Return the best move from the last completed search iteration
         return best_move
 
@@ -299,15 +296,15 @@ class AlphaBetaPlayer(IsolationPlayer):
         try:
             # The try/except block will automatically catch the exception
             # raised when the timer is about to expire.
-            for i in range(game.width * game.height):
+            for i in range(1+int(game.width * game.height/2)):
                 best_move = self.alphabeta(game, i+1)
 
         except SearchTimeout:
             pass  # Handle any actions required after timeout as needed
 
         # Return the best move from the last completed search iteration
-        if best_move == (1,1):
-            print(f"There was options: {game.get_legal_moves()}")
+        #if best_move == (-1,-1):
+        #    print(f"There was options: {game.get_legal_moves()}")
         return best_move
 
     def alphabeta(self, game, depth, alpha=float("-inf"), beta=float("inf")):
@@ -368,15 +365,17 @@ class AlphaBetaPlayer(IsolationPlayer):
 
         # TODO: finish this function!
         best_move = (-1, -1)
-        if depth <= 0 or not game.get_legal_moves():
+        legal_moves = game.get_legal_moves()
+        if depth <= 0 or not legal_moves:
             return self.score(game, self), best_move
+        best_move = legal_moves[0]
 
         if self is game.active_player:
             v, fun, is_alpha = float("-inf"), max, True
         else:
             v, fun, is_alpha = float("inf"), min, False
 
-        for m in game.get_legal_moves():
+        for m in legal_moves:
             score, _ = self.alphabeta_value(game.forecast_move(m), depth-1, alpha, beta)
             if score == fun(v, score) and score != v:
                 v = score
