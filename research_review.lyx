@@ -1,0 +1,251 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "libertine" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 2
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Summary of: Mastering the game of Go with deep neural networks and tree
+ search
+\end_layout
+
+\begin_layout Author
+Esteban Rodríguez Betancourt
+\end_layout
+
+\begin_layout Standard
+Go is a game with a huge legal move space: 
+\begin_inset Formula $250^{150}$
+\end_inset
+
+.
+ With such number of legal moves common approaches like Minimax, Monte Carlo
+ Tree Search or throwing more hardware to the problem isn't enough.
+\end_layout
+
+\begin_layout Standard
+DeepMind team was able to make a breakthrough in Go
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Silver2016"
+
+\end_inset
+
+ by combining the following techniques:
+\end_layout
+
+\begin_layout Itemize
+Monte Carlo Tree Search
+\end_layout
+
+\begin_layout Itemize
+Using Deep Convolutional Neural Networks for evaluating board positions
+ and selecting moves
+\end_layout
+
+\begin_layout Itemize
+Using supervised learning for bootstraping 'value networks' and 'policy
+ networks'
+\end_layout
+
+\begin_layout Itemize
+Using reinforcement learning to improve on both previous networks
+\end_layout
+
+\begin_layout Itemize
+Make the system play against itself to improve further the learned behaviors
+\end_layout
+
+\begin_layout Itemize
+Distributed training
+\end_layout
+
+\begin_layout Section*
+Monte Carlo Tree Search
+\end_layout
+
+\begin_layout Standard
+Monte Carlo Tree Search is a process where the moves tree is explored in
+ the following order:
+\end_layout
+
+\begin_layout Enumerate
+A move is selected
+\end_layout
+
+\begin_layout Enumerate
+The branch is expanded
+\end_layout
+
+\begin_layout Enumerate
+Random playout is performed from this point
+\end_layout
+
+\begin_layout Enumerate
+The game result is used to update information in the selected branch
+\end_layout
+
+\begin_layout Standard
+The process is repeated until the time allocated is spent, so it selects
+ the move with the best 
+\begin_inset Quotes eld
+\end_inset
+
+win/plays
+\begin_inset Quotes erd
+\end_inset
+
+ ratio.
+\end_layout
+
+\begin_layout Section*
+Deep Convolutional Neural Network
+\end_layout
+
+\begin_layout Standard
+The Go board provides perfect information to any viewer.
+ As such, DeepMind considers it to be a good candidate to apply a Deep Convoluti
+onal Neural Network to evaluate the board.
+\end_layout
+
+\begin_layout Standard
+A Convolutional Neural Network just sees a window of the input at a time,
+ so it is able to generalize faster and learn features from the input set.
+ That is why it is useful for image classification tasks, as it tolerates
+ better image translations and rotations.
+\end_layout
+
+\begin_layout Standard
+In the case of Go, a CNN may be able to identify situations, regardless
+ of position of the board where they happens.
+\end_layout
+
+\begin_layout Section*
+Supervised and Reinforcement Learning
+\end_layout
+
+\begin_layout Standard
+They used Supervised Learning to train the networks, based on previous games
+ databases.
+ This makes a good start and provides good results, but the network tends
+ to just memorizes games.
+\end_layout
+
+\begin_layout Standard
+To force the network to learn new situations they used Reinforcement Learning,
+ and made the system play against itself.
+ Reinforcement Learning gives rewards to the player that wins a game, so
+ it allows to do unsupervised learning.
+\end_layout
+
+\begin_layout Standard
+When training a neural network one of the most difficult steps is getting
+ good training sets, so being able to use unsupervised training (via reinforceme
+nt learning) on a problem is achieving a big milestone in its own right.
+\end_layout
+
+\begin_layout Section*
+Hardware and Distributed Training
+\end_layout
+
+\begin_layout Standard
+AlphaGo was implemented in a distributed version and a single-node version.
+ the final version uses 40 search threads, 48 CPUs and 8 GPUs, while the
+ distributed version uses 40 search threads, 1202 CPUs and 176 GPUs.
+\end_layout
+
+\begin_layout Standard
+The computations are splited between search threads and GPUs.
+ As MCTS requires simulating plays that task is handled by the CPUs.
+ The computation of the policy and value neural networks was handled by
+ GPUs, as they are better suit for performing lots of matrices calculations.
+\end_layout
+
+\begin_layout Standard
+Regarding the hardware there are two highlights: AlphaGo performed less
+ computations than DeepBlue agains Kasparov, by using a smarter strategy
+ for prunning the moves tree.
+ Also the distributed AlphaGo was able to beat the single-node version most
+ of the times.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "biblio"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
