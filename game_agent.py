@@ -44,7 +44,7 @@ def best_custom_score(game, player):
         return game.utility(player)
     my_moves = len(game.get_legal_moves(player))
     opponent_moves = len(game.get_legal_moves(game.get_opponent(player)))
-    return float(my_moves - opponent_moves) ** 2
+    return float((my_moves**2) - (opponent_moves**2))
 
 def custom_score_2(game, player):
     """Calculate the heuristic value of a game state from the point of view
