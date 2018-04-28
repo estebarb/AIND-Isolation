@@ -5,6 +5,27 @@
 \save_transient_properties true
 \origin unavailable
 \textclass article
+\begin_preamble
+\usepackage[table]{xcolor}
+\usepackage{pgfplotstable}
+
+
+% Table code taken from:
+% https://tex.stackexchange.com/questions/42444/parametrize-shading-in-table-through-tikz
+\pgfplotstableset{
+    color cells/.style={
+        col sep=comma,
+        string type,
+        postproc cell content/.code={%
+                \pgfkeysalso{@cell content=\rule{0cm}{2.4ex}\cellcolor{black!##1}\pgfmathtruncatemacro\number{##1}\ifnum\number>50\color{white}\fi##1}%
+                },
+        columns/x/.style={
+            column name={},
+            postproc cell content/.code={}
+        }
+    }
+}
+\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -134,10 +155,25 @@ custom_score
 \end_layout
 
 \begin_layout Standard
-The performance of this strategy is shown in the table below:
+The performance of this strategy is shown in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:AB_Custom-Tornament-Results"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="17" columns="5">
 <features tabularvalignment="middle">
@@ -952,6 +988,34 @@ No self vs self
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\emph on
+AB_Custom
+\emph default
+ Tornament Results
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:AB_Custom-Tornament-Results"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section*
 Strategy 2
 \end_layout
@@ -995,10 +1059,25 @@ custom_score_2
 \end_layout
 
 \begin_layout Standard
-The performance of this strategy is shown in the table below:
+The performance of this strategy is shown in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:AB_Custom_2-Tornament-Results"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="17" columns="5">
 <features tabularvalignment="middle">
@@ -1813,6 +1892,34 @@ No self vs self
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\emph on
+AB_Custom_2
+\emph default
+ Tornament Results
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:AB_Custom_2-Tornament-Results"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section*
 Strategy 3
 \end_layout
@@ -1856,10 +1963,25 @@ custom_score_3
 \end_layout
 
 \begin_layout Standard
-The performance of this strategy is shown in the table below:
+The performance of this strategy is shown in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:AB_Custom_3-Tornament-Results"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="17" columns="5">
 <features tabularvalignment="middle">
@@ -2674,13 +2796,72 @@ No self vs self
 
 \end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\emph on
+AB_Custom_3
+\emph default
+ Tornament Results
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:AB_Custom_3-Tornament-Results"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section*
 Results Analysis
 \end_layout
 
 \begin_layout Standard
-After testing Improved, Custom, Custom_2 and Custom_3 (the four in AB pruning
- version) against everyone (Improved, Custom, Custom2 and Custom3.
+After testing 
+\emph on
+Improved
+\emph default
+, 
+\emph on
+Custom
+\emph default
+, 
+\emph on
+Custom_2
+\emph default
+ and 
+\emph on
+Custom_3
+\emph default
+ (the four in AB pruning version) against everyone (
+\emph on
+Improved
+\emph default
+, 
+\emph on
+Custom
+\emph default
+, 
+\emph on
+Custom_2
+\emph default
+ and 
+\emph on
+Custom_3
+\emph default
+.
  both alpha-beta pruning and minimax) the first obvious result is that alpha-bet
 a pruning performs better than minimax.
 \end_layout
@@ -2694,10 +2875,14 @@ The winning rate of AB pruning algorithms vs minimax algorithms was
 \end_layout
 
 \begin_layout Standard
-Also, the win rate of the scoring functions is:
-\end_layout
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="5" columns="2">
 <features tabularvalignment="middle">
@@ -2728,6 +2913,8 @@ Win Rate
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\emph on
 AB_Improved
 \end_layout
 
@@ -2748,6 +2935,8 @@ AB_Improved
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\emph on
 AB_Custom
 \end_layout
 
@@ -2768,6 +2957,8 @@ AB_Custom
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\emph on
 AB_Custom_2
 \end_layout
 
@@ -2788,6 +2979,8 @@ AB_Custom_2
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\emph on
 AB_Custom_3
 \end_layout
 
@@ -2810,17 +3003,314 @@ AB_Custom_3
 
 \end_layout
 
-\begin_layout Standard
-So AB_Custom and AB_Custom_2 have higher winning rate than AB_Improved.
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Winning Rate per scoring function
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Winning-Rate-per"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-As a curious fact, AB_Custom and AB_Custom played 20 against each other,
- and each won 10 games each.
- This could be caused as Custom is a more complex score function, in fact
- it do twice the work done by Custom_2.
- In that case, Custom may be a better score function, but Custom_2 is capable
- to analyse a bit more branches.
+As shown in 
+\emph on
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Winning-Rate-per"
+
+\end_inset
+
+ AB_Custom
+\emph default
+ and 
+\emph on
+AB_Custom_2
+\emph default
+ have higher winning rate than AB_Improved.
+\end_layout
+
+\begin_layout Standard
+As a curious fact, 
+\emph on
+AB_Custom
+\emph default
+ and 
+\emph on
+AB_Custom_2
+\emph default
+ played 20 against each other, and each won 10 games each.
+ This could be caused as 
+\emph on
+Custom
+\emph default
+ is a more complex score function, in fact it do twice the work done by
+ 
+\emph on
+Custom_2
+\emph default
+.
+ In that case, 
+\emph on
+Custom
+\emph default
+ may be a better score function, but 
+\emph on
+Custom_2
+\emph default
+ is capable to analyse a bit more branches.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+pgfplotstabletypeset[color cells]{
+\end_layout
+
+\begin_layout Plain Layout
+
+            x, AB Imp, ABC , ABC 2 , ABC 3
+\end_layout
+
+\begin_layout Plain Layout
+
+AB Improved  , 100   ,  60 ,  57.5 ,  55
+\end_layout
+
+\begin_layout Plain Layout
+
+AB Custom    ,  40   , 100 ,  50   ,  35
+\end_layout
+
+\begin_layout Plain Layout
+
+AB Custom 2  ,  42.5 ,  50 , 100   ,  50
+\end_layout
+
+\begin_layout Plain Layout
+
+AB Custom 3  ,  45   ,  65 ,  50   , 100
+\end_layout
+
+\begin_layout Plain Layout
+
+AB Open      ,  50   ,  40 ,  50   ,  50
+\end_layout
+
+\begin_layout Plain Layout
+
+AB Center    ,  53.3 ,  90 ,  50   ,  60
+\end_layout
+
+\begin_layout Plain Layout
+
+Random       ,  90   , 100 , 100   , 100
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Winning Rates Percent
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Winning-Rates-Percent"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After the tournament measurings, we can claim that 
+\emph on
+Custom 
+\emph default
+scoring function works better than 
+\emph on
+Custom_2
+\emph default
+ and 
+\emph on
+Custom_3
+\emph default
+ because:
+\end_layout
+
+\begin_layout Enumerate
+As shown in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Winning-Rate-per"
+
+\end_inset
+
+, its win rate was higher: 
+\begin_inset Formula $73.33\%$
+\end_inset
+
+.
+ The next one was 
+\emph on
+Custom_2
+\emph default
+ with 
+\begin_inset Formula $68.33\%$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+As shown in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Winning-Rates-Percent"
+
+\end_inset
+
+, it had a win rate higher against 
+\emph on
+Improved
+\emph default
+, 
+\emph on
+Custom_3
+\emph default
+, 
+\emph on
+Center
+\emph default
+ and 
+\emph on
+Random.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+It ties against 
+\emph on
+Custom_2 
+\emph default
+with 
+\emph on
+Custom_3
+\emph default
+, with 
+\begin_inset Formula $50\%$
+\end_inset
+
+ win rate each.
+\end_layout
+
+\begin_layout Enumerate
+It performs worse against 
+\emph on
+Open
+\emph default
+, where 
+\emph on
+Improved, Custom_2
+\emph default
+ and 
+\emph on
+Custom_3
+\emph default
+ had a higher winning rate: 
+\begin_inset Formula $50\%$
+\end_inset
+
+ versus just 
+\begin_inset Formula $40\%$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+Custom
+\emph default
+ tries both to penalize opponent available moves, and reward having own
+ available moves.
+ 
+\emph on
+Custom_2
+\emph default
+ and 
+\emph on
+Custom_3
+\emph default
+ just tries to optimize one of those metrics.
+\end_layout
+
+\begin_layout Enumerate
+
+\emph on
+Custom
+\emph default
+ penalization is higher when the opponent has more available moves.
 \end_layout
 
 \end_body
